@@ -2534,6 +2534,7 @@ class LCRun3 {
         $options = array(
             'name' => $ch,
             'hash' => $vars[1],
+             '_this' => $isBlock ? $op : $inverted,
             'tag' => $tag
         );
 
