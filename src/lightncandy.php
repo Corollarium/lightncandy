@@ -2619,9 +2619,9 @@ class LCRun3 {
      *
      * @return string The rendered string of the token
      *
-     * @expect '4.2.3' when input array('blockhelpers' => array('a' => function ($cx) {return array($cx,2,3);})), 'a', array(), array(0, 0), 4, function($cx, $i) {return implode('.', $i);}
-     * @expect '2.6.5' when input array('blockhelpers' => array('a' => function ($cx,$in) {return array($cx,$in[0],5);})), 'a', array(), array('6', 0), 2, function($cx, $i) {return implode('.', $i);}
-     * @expect '' when input array('blockhelpers' => array('a' => function ($cx,$in) {})), 'a', array(), array('6', 0), 2, function($cx, $i) {return implode('.', $i);}
+     * @expect '4.2.3' when input array('blockhelpers' => array('a' => function ($cx) {return array($cx,2,3);})), 'a', array(), array(0, 0), 4, false, function($cx, $i) {return implode('.', $i);}
+     * @expect '2.6.5' when input array('blockhelpers' => array('a' => function ($cx,$in) {return array($cx,$in[0],5);})), 'a', array(), array('6', 0), 2, false, function($cx, $i) {return implode('.', $i);}
+     * @expect '' when input array('blockhelpers' => array('a' => function ($cx,$in) {})), 'a', array(), array('6', 0), 2, false, function($cx, $i) {return implode('.', $i);}
      */
    public static function bch($cx, $ch, $tag, $vars, $in, $inverted, $cb, $else = null) {
         $r = call_user_func($cx['blockhelpers'][$ch], $in, $vars[0], $vars[1]);
