@@ -1809,7 +1809,7 @@ $libstr
         if ($context['flags']['jsobj'] || $context['flags']['jstrue'] || $context['flags']['debug']) {
             return $context['ops']['seperator'] . static::getFuncName($context, $raw ? 'raw' : $context['ops']['enc'], $v[1]) . "\$cx, {$v[0]}){$context['ops']['seperator']}";
         } else {
-            return $raw ? "{$context['ops']['seperator']}$v[0]{$context['ops']['seperator']}" : "{$context['ops']['seperator']}htmlentities((string){$v[0]}, ENT_QUOTES, 'UTF-8'){$context['ops']['seperator']}";
+            return $raw ? "{$context['ops']['seperator']}$v[0]{$context['ops']['seperator']}" : "{$context['ops']['seperator']}htmlspecialchars((string){$v[0]}, ENT_QUOTES, 'UTF-8'){$context['ops']['seperator']}";
         }
     }
 
@@ -2115,7 +2115,7 @@ class LCRun3 {
      * @expect 'a&#039;b' when input array(), 'a\'b'
      */
     public static function enc($cx, $var) {
-        return htmlentities(self::raw($cx, $var), ENT_QUOTES, 'UTF-8');
+        return htmlspecialchars(self::raw($cx, $var), ENT_QUOTES, 'UTF-8');
     }
 
     /**
@@ -2132,7 +2132,7 @@ class LCRun3 {
      * @expect '&#x60;a&#x27;b' when input array(), '`a\'b'
      */
     public static function encq($cx, $var) {
-        return preg_replace('/`/', '&#x60;', preg_replace('/&#039;/', '&#x27;', htmlentities(self::raw($cx, $var), ENT_QUOTES, 'UTF-8')));
+        return preg_replace('/`/', '&#x60;', preg_replace('/&#039;/', '&#x27;', htmlspecialchars(self::raw($cx, $var), ENT_QUOTES, 'UTF-8')));
     }
 
     /**
@@ -2357,9 +2357,9 @@ class LCRun3 {
 
         switch ($op) {
             case 'enc':
-                return htmlentities($ret, ENT_QUOTES, 'UTF-8');
+                return htmlspecialchars($ret, ENT_QUOTES, 'UTF-8');
             case 'encq':
-                return preg_replace('/&#039;/', '&#x27;', htmlentities($ret, ENT_QUOTES, 'UTF-8'));
+                return preg_replace('/&#039;/', '&#x27;', htmlspecialchars($ret, ENT_QUOTES, 'UTF-8'));
         }
         return $ret;
     }
