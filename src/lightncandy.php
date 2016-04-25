@@ -2132,7 +2132,7 @@ class LCRun3 {
      * @expect '&#x60;a&#x27;b' when input array(), '`a\'b'
      */
     public static function encq($cx, $var) {
-        return preg_replace('/`/', '&#x60;', preg_replace('/&#039;/', '&#x27;', htmlspecialchars(self::raw($cx, $var), ENT_QUOTES, 'UTF-8')));
+        return str_replace(array('=', '`', '&#039;'), array('&#x3D;', '&#x60;', '&#x27;'), htmlentities(static::raw($cx, $var), ENT_QUOTES, 'UTF-8'));
     }
 
     /**
@@ -2359,7 +2359,7 @@ class LCRun3 {
             case 'enc':
                 return htmlspecialchars($ret, ENT_QUOTES, 'UTF-8');
             case 'encq':
-                return preg_replace('/&#039;/', '&#x27;', htmlspecialchars($ret, ENT_QUOTES, 'UTF-8'));
+                return str_replace(array('=', '`', '&#039;'), array('&#x3D;', '&#x60;', '&#x27;'), htmlentities($ret, ENT_QUOTES, 'UTF-8'));
         }
         return $ret;
     }
